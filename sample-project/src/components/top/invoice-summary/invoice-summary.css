@@ -1,7 +1,5 @@
 .app-invoice-summary {
-  padding: 1.5rem;
-  border: 1px solid #dddbda;
-  border-radius: 0.25rem;
+  padding: 1rem 0 5rem;
 }
 
 .app-invoice-summary__title {

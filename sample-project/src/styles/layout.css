@@ -4,11 +4,12 @@
 
 .app-page-stack {
   display: grid;
-  gap: 1rem;
 }
 
 .app-page-heading {
   margin: 0;
+  padding-bottom: 0.5rem;
+  border-bottom-width: 2px;
 }
 
 .app-layout-columns {

@@ -1,6 +1,6 @@
 .app-header {
   background: #ffffff;
-  border-block-end: 1px solid #ba0517;
+  border-block-end: 2px solid #ba0517;
 }
 
 .app-header__bar {
@@ -131,6 +131,7 @@
       ".     user";
     row-gap: 0.5rem;
     align-items: center;
+    padding: 0.75rem 1rem 0 1rem;
   }
 
   .app-header__hamburger {
@@ -140,13 +141,19 @@
   .app-header__brand {
     grid-area: brand;
     padding-block-end: 0.75rem;
-    border-block-end: 1px solid #c9c9c9;
   }
 
   .app-header__inquiry {
     grid-area: inquiry;
     justify-self: end;
     padding-block-end: 0.75rem;
+  }
+
+  .app-header__bar::after {
+    content: "";
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: end;
     border-block-end: 1px solid #c9c9c9;
   }
 
