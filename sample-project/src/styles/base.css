@@ -1,0 +1,14 @@
+:root {
+  font-family: Arial, "Helvetica Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-width: 20rem;
+  background: #f3f3f3;
+}
+
+.app-visually-constrained {
+  width: min(100% - 2rem, 75rem);
+  margin-inline: auto;
+}

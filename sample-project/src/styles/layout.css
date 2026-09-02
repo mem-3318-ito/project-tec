@@ -1,0 +1,12 @@
+.app-main {
+    padding-block: 1.5rem 3rem;
+}
+
+.app-page-stack {
+    display: grid;
+    gap: 1rem;
+}
+
+.app-page-heading {
+    margin: 0;
+}

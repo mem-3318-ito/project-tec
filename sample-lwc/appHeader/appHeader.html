@@ -1,0 +1,28 @@
+<template>
+  <header
+    class="slds-grid slds-grid_align-spread slds-p-around_medium app-header"
+  >
+    <strong class="app-header__brand">サンプル SLDS UI</strong>
+
+    <nav class="app-header__nav" aria-label="メインナビゲーション">
+      <lightning-button
+        variant="base"
+        label="ユーザー一覧"
+        onclick="
+          {
+            handleList;
+          }
+        "
+      ></lightning-button>
+      <lightning-button
+        variant="base"
+        label="新規登録"
+        onclick="
+          {
+            handleNew;
+          }
+        "
+      ></lightning-button>
+    </nav>
+  </header>
+</template>

@@ -1,0 +1,33 @@
+{
+  "name": "slds-lwc-sample",
+  "version": "1.0.0",
+  "private": "true",
+  "type": "module",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "lint:html:components": "html-validate \"src/components/**/*.html\"",
+    "lint:html:dist": "npm run build && html-validate --config .htmlvalidate.dist.json \"dist/**/*.html\"",
+    "lint:html": "npm run lint:html:components && npm run lint:html:dist",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:js": "eslint \"src/**/*.js\"",
+    "lint:project": "node scripts/check-project-rules.mjs",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js && npm run  lint:project",
+    "format": "prettier --write \"{src,scripts}/**/*.{html,css,js,mjs}\" \"*.{json,md,js}\"",
+    "format:check": "prettier --check \"{src,scripts}/**/*.{html,css,js,mjs}\" \"*.{json,md,js}\"",
+    "check": "npm run lint && npm run build"
+  },
+  "devDependencies": {
+    "@salesforce-ux/design-system": "2.264.0",
+    "eslint": "10.9.0",
+    "html-validate": "11.10.0",
+    "posthtml": "0.16.7",
+    "posthtml-include": "2.0.1",
+    "prettier": "3.9.6",
+    "stylelint": "17.14.1"
+  }
+}
