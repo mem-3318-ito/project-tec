@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f3f3f3;
+}
+
+.app-main {
+  padding: 1rem;
+}
+
+.app-visually-constrained {
+  width: min(100%, 75rem);
+  margin-inline: auto;
+}
+
+.app-page-stack > * > * {
+  margin-top: 1rem;
+}
+
+.app-page-heading {
+  margin: 0;
+}

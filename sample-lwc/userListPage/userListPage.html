@@ -1,0 +1,27 @@
+<template>
+  <c-app-header onnavigate="{handleHeaderNavigate}"></c-app-header>
+
+  <main class="app-main">
+    <div class="app-visually-constrained app-page-stack">
+      <lightning-breadcrumbs>
+        <lightning-breadcrumb label="ホーム"></lightning-breadcrumb>
+        <lightning-breadcrumb label="ユーザー一覧"></lightning-breadcrumb>
+      </lightning-breadcrumbs>
+
+      <h1 class="slds-text-heading_large app-page-heading">ユーザー一覧</h1>
+
+      <c-search-form onsearch="{handleSearch}"></c-search-form>
+      <c-result-table
+        onviewuser="{handleViewUser}"
+        onedituser="{handleEditUser}"
+      ></c-result-table>
+      <c-pagination
+        current-page="{currentPage}"
+        total-pages="{totalPages}"
+        onpagechange="{handlePageChange}"
+      ></c-pagination>
+    </div>
+  </main>
+
+  <c-app-footer></c-app-footer>
+</template>

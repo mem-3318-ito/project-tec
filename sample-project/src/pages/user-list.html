@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ユーザー一覧 | サンプル SLDS UI</title>
+    <link
+      rel="stylesheet"
+      href="./vendor/slds/salesforce-lightning-design-system.min.css"
+    />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <!-- component-styles -->
+  </head>
+  <body>
+    <include src="components/header/header.html"></include>
+
+    <main class="app-main">
+      <div class="app-visually-constrained app-page-stack">
+        <nav aria-label="パンくず">
+          <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+            <li class="slds-breadcrumb__item">
+              <a href="./user-list.html">ホーム</a>
+            </li>
+            <li class="slds-breadcrumb__item" aria-current="page">
+              <span>ユーザー一覧</span>
+            </li>
+          </ol>
+        </nav>
+
+        <h1 class="slds-text-heading_large app-page-heading">ユーザー一覧</h1>
+        <include src="components/search-form/search-form.html"></include>
+        <include src="components/result-table/result-table.html"></include>
+        <include src="components/pagination/pagination.html"></include>
+      </div>
+    </main>
+
+    <include src="components/footer/footer.html"></include>
+
+    <script type="module" src="./scripts/main.js"></script>
+    <!-- component-scripts -->
+  </body>
+</html>
