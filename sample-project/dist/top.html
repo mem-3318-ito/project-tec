@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>マイページ | サンプル SLDS UI</title>
+    <link rel="stylesheet" href="./vendor/slds/slds2.cosmos.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./components/common/header/header.css">
+    <link rel="stylesheet" href="./components/common/global-nav/global-nav.css">
+    <link rel="stylesheet" href="./components/top/org-name/org-name.css">
+    <link rel="stylesheet" href="./components/top/invoice-summary/invoice-summary.css">
+    <link rel="stylesheet" href="./components/top/active-contracts/active-contracts.css">
+    <link rel="stylesheet" href="./components/top/notifications/notifications.css">
+  </head>
+  <body>
+    <header class="app-header" data-component="header">
+  <div class="app-header__bar">
+    <button type="button" class="app-header__hamburger" data-action="toggle-menu" aria-expanded="false" aria-controls="app-header-drawer">
+      <span class="slds-assistive-text">メニューを開く</span>
+      <svg class="app-header__hamburger-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      </svg>
+    </button>
+
+    <p class="app-header__brand">hoge株式会社</p>
+
+    <a class="app-header__inquiry" href="/">お問い合わせ</a>
+
+    <div class="app-header__user" data-role="user-menu">
+      <button type="button" class="app-header__user-trigger" data-action="toggle-user-menu" aria-haspopup="true" aria-expanded="false" aria-controls="app-header-user-menu">
+        佐藤 様
+        <span class="app-header__user-caret" aria-hidden="true">▼</span>
+      </button>
+
+      <div id="app-header-user-menu" class="app-header__user-menu" data-role="user-menu-panel" hidden="">
+        <a class="app-header__user-menu-link" href="/">パスワード変更</a>
+        <button type="button" class="app-header__user-menu-button" data-action="logout">
+          ログアウト
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-header-drawer" class="app-header__drawer" data-role="drawer" hidden="">
+    <p class="app-header__drawer-user">佐藤 様</p>
+    <a class="app-header__drawer-link" href="/">パスワード変更</a>
+    <button type="button" class="app-header__drawer-button" data-action="logout">
+      ログアウト
+    </button>
+
+    <nav class="app-header__drawer-nav" aria-label="メニュー内グローバルナビゲーション">
+      <ul class="app-header__drawer-nav-list">
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/">契約</a></li>
+        <li><a href="/">請求</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <nav class="app-global-nav" data-component="global-nav" aria-label="グローバルナビゲーション">
+  <ul class="app-global-nav__list">
+    <li class="app-global-nav__item">
+      <a class="app-global-nav__link" href="/">ホーム</a>
+    </li>
+    <li class="app-global-nav__item">
+      <a class="app-global-nav__link" href="/">契約</a>
+    </li>
+    <li class="app-global-nav__item">
+      <a class="app-global-nav__link" href="/">請求</a>
+    </li>
+  </ul>
+</nav>
+
+
+    <main class="app-main">
+      <div class="app-visually-constrained app-page-stack">
+        <h1 class="slds-text-heading_small slds-border_bottom app-page-heading">
+          マイページ
+        </h1>
+
+        <section class="app-org-name" data-component="org-name">
+  <p class="app-org-name__label">株式会社サンプル商事</p>
+</section>
+
+        <section class="app-invoice-summary" data-component="invoice-summary">
+  <h2 class="app-invoice-summary__title">８月ご請求額（税込）</h2>
+
+  <p class="app-invoice-summary__amount">￥95,000</p>
+
+  <button type="button" class="slds-button slds-button_brand app-invoice-summary__action" data-action="view-contract-status">
+    契約状況を見る
+    <span aria-hidden="true">&gt;</span>
+  </button>
+
+  <p class="app-invoice-summary__note">
+    毎月○日頃に確定した金額を表示しています
+  </p>
+</section>
+
+
+        <div class="app-layout-columns">
+          <div class="app-layout-columns__primary">
+            <section class="app-active-contracts" data-component="active-contracts">
+  <table class="app-active-contracts__table">
+    <caption class="app-active-contracts__caption">
+      お手続き中の契約
+    </caption>
+    <thead class="slds-assistive-text">
+      <tr>
+        <th scope="col">契約コード</th>
+        <th scope="col">契約名</th>
+        <th scope="col">手続き状況</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="app-active-contracts__row">
+        <td class="app-active-contracts__code">c-2026-002</td>
+        <td class="app-active-contracts__name">HogeHuga</td>
+        <td class="app-active-contracts__action">
+          <a href="/">契約手続き中 <span aria-hidden="true">&gt;</span></a>
+        </td>
+      </tr>
+      <tr class="app-active-contracts__row">
+        <td class="app-active-contracts__code">c-2026-006</td>
+        <td class="app-active-contracts__name">HogeMoga</td>
+        <td class="app-active-contracts__action">
+          <a href="/">契約手続き中 <span aria-hidden="true">&gt;</span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+          </div>
+          <div class="app-layout-columns__secondary">
+            <section class="app-notifications" data-component="notifications">
+  <table class="app-notifications__table">
+    <caption class="app-notifications__caption">
+      お知らせ
+    </caption>
+    <thead class="slds-assistive-text">
+      <tr>
+        <th scope="col">日付</th>
+        <th scope="col">お知らせ内容</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="app-notifications__row">
+        <td class="app-notifications__date">
+          <time datetime="2026-05-01">2026/05/01</time>
+          <span class="app-notifications__badge">メンテナンス</span>
+        </td>
+        <td class="app-notifications__title">
+          <a href="/">システムメンテナンスのお知らせ</a>
+        </td>
+      </tr>
+      <tr class="app-notifications__row">
+        <td class="app-notifications__date">
+          <time datetime="2026-04-20">2026/04/20</time>
+        </td>
+        <td class="app-notifications__title">
+          <a href="/">新機能リリースのご案内</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a class="app-notifications__more" href="/">
+    お知らせ一覧 <span aria-hidden="true">&gt;</span>
+  </a>
+</section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./components/common/header/header.js"></script>
+    <script type="module" src="./components/top/invoice-summary/invoice-summary.js"></script>
+  </body>
+</html>

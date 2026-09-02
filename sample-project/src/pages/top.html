@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>マイページ | サンプル SLDS UI</title>
+    <link rel="stylesheet" href="./vendor/slds/slds2.cosmos.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <!-- component-styles -->
+  </head>
+  <body>
+    <include src="components/common/header/header.html"></include>
+    <include src="components/common/global-nav/global-nav.html"></include>
+
+    <main class="app-main">
+      <div class="app-visually-constrained app-page-stack">
+        <h1 class="slds-text-heading_small slds-border_bottom app-page-heading">
+          マイページ
+        </h1>
+
+        <include src="components/top/org-name/org-name.html"></include>
+        <include
+          src="components/top/invoice-summary/invoice-summary.html"
+        ></include>
+
+        <div class="app-layout-columns">
+          <div class="app-layout-columns__primary">
+            <include
+              src="components/top/active-contracts/active-contracts.html"
+            ></include>
+          </div>
+          <div class="app-layout-columns__secondary">
+            <include
+              src="components/top/notifications/notifications.html"
+            ></include>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./scripts/main.js"></script>
+    <!-- component-scripts -->
+  </body>
+</html>

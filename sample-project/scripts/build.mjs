@@ -23,7 +23,9 @@ async function pathExists(path) {
 async function collectIncludes(filePath, stack = []) {
   const normalized = resolve(filePath);
   if (stack.includes(normalized)) {
-    throw new Error(`Circular include detected: ${[...stack, normalized].join(" -> ")}`);
+    throw new Error(
+      `Circular include detected: ${[...stack, normalized].join(" -> ")}`,
+    );
   }
 
   const source = await readFile(normalized, "utf8");
@@ -81,8 +83,8 @@ async function renderPage(pagePath) {
   const result = await posthtml([
     include({
       root: srcDir,
-      encoding: "utf8"
-    })
+      encoding: "utf8",
+    }),
   ]).process(withAssets);
 
   return result.html;
@@ -111,27 +113,38 @@ await copyIfExists(join(srcDir, "styles"), join(distDir, "styles"));
 await copyIfExists(join(srcDir, "scripts"), join(distDir, "scripts"));
 await copyIfExists(join(srcDir, "assets"), join(distDir, "assets"));
 
-for (const entry of await readdir(componentsDir, { withFileTypes: true })) {
-  if (!entry.isDirectory()) continue;
-  const sourceDir = join(componentsDir, entry.name);
-  const destinationDir = join(distDir, "components", entry.name);
-  await mkdir(destinationDir, { recursive: true });
-  for (const asset of await readdir(sourceDir, { withFileTypes: true })) {
-    if (!asset.isFile() || ![".css", ".js"].includes(extname(asset.name))) continue;
-    await cp(join(sourceDir, asset.name), join(destinationDir, asset.name));
+async function copyComponentAssets(sourceDir) {
+  for (const entry of await readdir(sourceDir, { withFileTypes: true })) {
+    const entryPath = join(sourceDir, entry.name);
+    if (entry.isDirectory()) {
+      await copyComponentAssets(entryPath);
+      continue;
+    }
+    if (!entry.isFile() || ![".css", ".js"].includes(extname(entry.name)))
+      continue;
+    const destinationPath = join(
+      distDir,
+      "components",
+      relative(componentsDir, entryPath),
+    );
+    await mkdir(dirname(destinationPath), { recursive: true });
+    await cp(entryPath, destinationPath);
   }
 }
+
+await copyComponentAssets(componentsDir);
 
 const sldsCss = join(
   rootDir,
   "node_modules",
   "@salesforce-ux",
-  "design-system",
-  "assets",
-  "styles",
-  "salesforce-lightning-design-system.min.css"
+  "design-system-2",
+  "dist",
+  "css",
+  "bundled",
+  "slds2.cosmos.css",
 );
-const sldsDestination = join(distDir, "vendor", "slds", "salesforce-lightning-design-system.min.css");
+const sldsDestination = join(distDir, "vendor", "slds", "slds2.cosmos.css");
 await mkdir(dirname(sldsDestination), { recursive: true });
 await cp(sldsCss, sldsDestination);
 

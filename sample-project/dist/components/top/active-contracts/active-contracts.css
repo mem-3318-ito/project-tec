@@ -1,0 +1,24 @@
+.app-active-contracts__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #dddbda;
+}
+
+.app-active-contracts__caption {
+  padding: 0.5rem 1rem;
+  background: #000000;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: start;
+  caption-side: top;
+}
+
+.app-active-contracts__row td {
+  padding: 0.75rem 1rem;
+  border-block-start: 1px solid #dddbda;
+}
+
+.app-active-contracts__action {
+  text-align: end;
+}

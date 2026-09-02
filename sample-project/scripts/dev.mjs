@@ -4,7 +4,7 @@ import { createServer } from "node:http";
 import { extname, join, normalize, resolve, sep } from "node:path";
 import { spawn } from "node:child_process";
 
-const HOME_PATH = "user-list.html";
+const HOME_PATH = "top.html";
 const port = Number(process.env.PORT ?? 4173);
 const distDir = resolve("dist");
 let buildTimer;
