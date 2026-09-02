@@ -31,6 +31,12 @@ npm run dev
 
 初回 `npm install` で生成された `package-lock.json` はGitへコミットし、実案件ではCIを `npm ci` に切り替えて依存バージョンを固定することを推奨します。
 
+## Husky（pre-push）
+
+`npm install` 時に `prepare` スクリプト経由でHuskyの `pre-push` フックが自動セットアップされ、`git push` 前に `npm run check`（format:check + lint一式 + build）が自動実行されます。Lintエラーが残ったままの状態ではpushできません。
+
+このリポジトリは `sample-project/` がGitリポジトリのルートではなくサブディレクトリのため、`prepare` スクリプトは通常の `husky` ではなく `cd .. && husky sample-project/.husky` としてリポジトリルートから実行し、`core.hooksPath` が `sample-project/.husky` を指すように構成しています。実際のフック本体は `sample-project/.husky/pre-push` にコミットされており、`sample-project/.husky/_/` はHuskyが自動生成する内部ファイル（Git管理対象外）です。
+
 ## SLDSバージョン
 
 このサンプルは `@salesforce-ux/design-system-2` 2.264.1（SLDS 2 / Cosmosテーマ）を固定して利用します。クラシックの `@salesforce-ux/design-system`（SLDS 1）とは別パッケージです。対象Salesforce環境がSLDS 1のままの場合は、静的側だけ先行させず、LWC側の対象デザインシステムと合わせて依存・Blueprint・レビュー基準を切り替えてください。

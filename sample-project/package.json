@@ -19,12 +19,14 @@
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js && npm run  lint:project",
     "format": "prettier --write \"{src,scripts}/**/*.{html,css,js,mjs}\" \"*.{json,md,js}\"",
     "format:check": "prettier --check \"{src,scripts}/**/*.{html,css,js,mjs}\" \"*.{json,md,js}\"",
-    "check": "npm run lint && npm run build"
+    "check": "npm run lint && npm run build",
+    "prepare": "cd .. && husky sample-project/.husky"
   },
   "devDependencies": {
     "@salesforce-ux/design-system-2": "2.264.1",
     "eslint": "10.9.0",
     "html-validate": "11.10.0",
+    "husky": "^9.1.7",
     "posthtml": "0.16.7",
     "posthtml-include": "2.0.1",
     "prettier": "3.9.6",
