@@ -54,9 +54,7 @@ project/
 │
 ├─ src/
 │  ├─ pages/
-│  │  ├─ user-list.html
-│  │  ├─ user-detail.html
-│  │  └─ user-edit.html
+│  │  └─ top.html
 │  │
 │  ├─ components/
 │  │  ├─ common/
@@ -67,8 +65,7 @@ project/
 │  │  │  │
 │  │  │  ├─ global-nav/
 │  │  │  │  ├─ global-nav.html
-│  │  │  │  ├─ global-nav.css
-│  │  │  │  └─ global-nav.js
+│  │  │  │  └─ global-nav.css
 │  │  │  │
 │  │  │  ├─ breadcrumb/
 │  │  │  │  ├─ breadcrumb.html
@@ -79,16 +76,23 @@ project/
 │  │  │     ├─ back-button.css
 │  │  │     └─ back-button.js
 │  │  │
-│  │  ├─ user-list/
-│  │  │  ├─ search-form/
-│  │  │  │  ├─ search-form.html
-│  │  │  │  ├─ search-form.css
-│  │  │  │  └─ search-form.js
+│  │  ├─ top/
+│  │  │  ├─ org-name/
+│  │  │  │  ├─ org-name.html
+│  │  │  │  └─ org-name.css
 │  │  │  │
-│  │  │  └─ result-table/
-│  │  │     ├─ result-table.html
-│  │  │     ├─ result-table.css
-│  │  │     └─ result-table.js
+│  │  │  ├─ invoice-summary/
+│  │  │  │  ├─ invoice-summary.html
+│  │  │  │  ├─ invoice-summary.css
+│  │  │  │  └─ invoice-summary.js
+│  │  │  │
+│  │  │  ├─ active-contracts/
+│  │  │  │  ├─ active-contracts.html
+│  │  │  │  └─ active-contracts.css
+│  │  │  │
+│  │  │  └─ notifications/
+│  │  │     ├─ notifications.html
+│  │  │     └─ notifications.css
 │  │  │
 │  │  └─ ...(画面ごとに同様のディレクトリを追加。15画面分を想定)
 │  │
@@ -105,16 +109,14 @@ project/
 │  └─ build.mjs
 │
 ├─ dist/
-│  ├─ user-list.html
-│  ├─ user-detail.html
-│  └─ user-edit.html
+│  └─ top.html
 │
 ├─ .husky/
 │  └─ pre-push
 │
 ├─ package.json
 ├─ eslint.config.js
-├─ .stylelintrc.json
+├─ stylelint.config.js
 ├─ .htmlvalidate.json
 └─ README.md
 ```
@@ -156,13 +158,13 @@ project/
 
   <main class="app-main">
 
-    <include src="../components/common/breadcrumb/breadcrumb.html"></include>
+    <include src="../components/top/org-name/org-name.html"></include>
 
-    <include src="../components/user-list/search-form/search-form.html"></include>
+    <include src="../components/top/invoice-summary/invoice-summary.html"></include>
 
-    <include src="../components/user-list/result-table/result-table.html"></include>
+    <include src="../components/top/active-contracts/active-contracts.html"></include>
 
-    <include src="../components/common/back-button/back-button.html"></include>
+    <include src="../components/top/notifications/notifications.html"></include>
 
   </main>
 
@@ -172,23 +174,23 @@ project/
 
 ビルド時にIncludeを実際のHTMLへ展開する。
 
-生成後の `dist/user-list.html` は通常の静的HTMLとなる。
+生成後の `dist/top.html` は通常の静的HTMLとなる。
 
 ```text
-src/pages/user-list.html
+src/pages/top.html
 
         ↓ build
 
 components/common/header/header.html
 components/common/global-nav/global-nav.html
-components/common/breadcrumb/breadcrumb.html
-components/user-list/search-form/search-form.html
-components/user-list/result-table/result-table.html
-components/common/back-button/back-button.html
+components/top/org-name/org-name.html
+components/top/invoice-summary/invoice-summary.html
+components/top/active-contracts/active-contracts.html
+components/top/notifications/notifications.html
 
         ↓
 
-dist/user-list.html
+dist/top.html
 ```
 
 なお、検索フォームとテーブルのように、コンポーネントを跨いだ連携が必要になるケースについては「12-1. コンポーネントを跨ぐ処理（検索 → テーブル連携）への対応」を参照。
@@ -228,7 +230,7 @@ for
 以下は禁止。
 
 ```text
-dist/user-list.html
+dist/top.html
         ↓
 直接修正
 ```
@@ -236,13 +238,13 @@ dist/user-list.html
 正しい流れは以下。
 
 ```text
-src/components/search-form/search-form.css
+src/components/top/invoice-summary/invoice-summary.css
         ↓
 修正
         ↓
 npm run build
         ↓
-dist/user-list.html
+dist/top.html
 ```
 
 つまり、
