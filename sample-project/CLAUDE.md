@@ -1,24 +1,28 @@
-# Project Guidance
+# プロジェクトガイドライン
 
-This repository is a static UI handoff project whose downstream implementation target is Salesforce LWC.
+本リポジトリは静的UIの受渡用プロジェクトであり、下流での実装対象は Salesforce LWC（Lightning Web Components）です。
 
-Before finishing UI work:
+対象画面は15ページあり、画面ごとに複数のコンポーネントを準備する比較的大規模な構成です。
 
-1. Read `.claude/rules/slds-static-ui.md`.
-2. Keep `src` as the source of truth. Never edit `dist` by hand.
-3. Prefer SLDS Blueprint markup and SLDS utility classes before adding custom CSS.
-4. Never override `.slds-*` selectors from project CSS.
-5. Keep custom CSS and JavaScript scoped to the component boundary.
-6. Do not use iframe, inline styles, inline event handlers, or CSS/JavaScript ID selectors.
-7. Preserve semantic HTML and accessibility behavior.
-8. Review whether each component can map cleanly to one LWC.
-9. Run `npm run check` before completing a change.
+UIの作業を完了する前に、以下の点を確認してください。
 
-When reviewing, report issues in this order:
+1. `.claude/rules/slds-static-ui.md` を確認すること。
+2. `src` を正（ソース・オブ・トゥルース）として扱うこと。`dist` を手動で直接編集しないこと。
+3. カスタムCSSを追加する前に、SLDS 2 BlueprintのマークアップおよびSLDSユーティリティクラスを優先して使用すること。
+4. プロジェクト独自のCSSから `.slds-*` セレクターをオーバーライド（上書き）しないこと。
+5. カスタムCSSとJavaScriptは、コンポーネントのスコープ内に収めること。
+6. `iframe`、インラインスタイル、インラインイベントハンドラー、CSS/JavaScriptのIDセレクターを使用しないこと。
+7. セマンティックHTMLとアクセシビリティの挙動を維持すること。アクセシビリティはWCAG 2.1 AAへの準拠を到達目標とする。
+8. 各コンポーネントが1つのLWCにクリーンにマッピングできるかをレビューすること。
+9. 共通コンポーネントはヘッダー / グローバルナビゲーション / パンくずリスト / 戻るボタンの4種のみとして扱い、それ以外（検索フォーム、テーブルなど）は画面・機能単位のコンポーネントとして安易に共通化しないこと。
+10. 検索とテーブルのように、コンポーネントを跨ぐ処理が必要な場合はコンポーネント同士が直接DOMを操作せず、CustomEventを介してページ側が仲介する構成にすること。
+11. 本プロジェクトはBacklogのgit運用を前提としCIを利用できないため、Husky（pre-push）による自動チェックに加え、変更を完了する前に必ず `npm run check` を実行すること。
 
-- SLDS / accessibility
-- LWC migration risk
-- component boundary / maintainability
-- CSS leakage
-- JavaScript DOM coupling
-- minor style issues
+コードレビュー時は、以下の優先順位で課題を報告してください。
+
+- SLDS / アクセシビリティ（WCAG 2.1 AA）
+- LWC移行時のリスク
+- コンポーネント境界 / メンテナンス性（共通コンポーネントの範囲を逸脱していないか含む）
+- CSSの漏洩（リーク）
+- JavaScriptとDOMの結合度（コンポーネントを跨ぐ処理がイベント経由で疎結合になっているか）
+- 軽微なスタイルの問題
