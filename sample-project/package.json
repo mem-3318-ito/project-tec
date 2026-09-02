@@ -22,7 +22,7 @@
     "check": "npm run lint && npm run build"
   },
   "devDependencies": {
-    "@salesforce-ux/design-system": "2.264.0",
+    "@salesforce-ux/design-system-2": "2.264.1",
     "eslint": "10.9.0",
     "html-validate": "11.10.0",
     "posthtml": "0.16.7",

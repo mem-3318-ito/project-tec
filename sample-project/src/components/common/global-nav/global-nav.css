@@ -1,0 +1,28 @@
+.app-global-nav {
+  display: none;
+  background: #ffffff;
+}
+
+.app-global-nav__list {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  list-style: none;
+}
+
+.app-global-nav__link {
+  color: #16325c;
+  text-decoration: none;
+}
+
+.app-global-nav__link:hover,
+.app-global-nav__link:focus {
+  text-decoration: underline;
+}
+
+@media (min-width: 48rem) {
+  .app-global-nav {
+    display: block;
+  }
+}

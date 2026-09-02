@@ -1,0 +1,88 @@
+<header class="app-header" data-component="header">
+  <div class="app-header__bar">
+    <button
+      type="button"
+      class="app-header__hamburger"
+      data-action="toggle-menu"
+      aria-expanded="false"
+      aria-controls="app-header-drawer"
+    >
+      <span class="slds-assistive-text">メニューを開く</span>
+      <svg
+        class="app-header__hamburger-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          d="M3 6h18M3 12h18M3 18h18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+
+    <p class="app-header__brand">hoge株式会社</p>
+
+    <a class="app-header__inquiry" href="/">お問い合わせ</a>
+
+    <div class="app-header__user" data-role="user-menu">
+      <button
+        type="button"
+        class="app-header__user-trigger"
+        data-action="toggle-user-menu"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-controls="app-header-user-menu"
+      >
+        佐藤 様
+        <span class="app-header__user-caret" aria-hidden="true">▼</span>
+      </button>
+
+      <div
+        id="app-header-user-menu"
+        class="app-header__user-menu"
+        data-role="user-menu-panel"
+        hidden
+      >
+        <a class="app-header__user-menu-link" href="/">パスワード変更</a>
+        <button
+          type="button"
+          class="app-header__user-menu-button"
+          data-action="logout"
+        >
+          ログアウト
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="app-header-drawer"
+    class="app-header__drawer"
+    data-role="drawer"
+    hidden
+  >
+    <p class="app-header__drawer-user">佐藤 様</p>
+    <a class="app-header__drawer-link" href="/">パスワード変更</a>
+    <button
+      type="button"
+      class="app-header__drawer-button"
+      data-action="logout"
+    >
+      ログアウト
+    </button>
+
+    <nav
+      class="app-header__drawer-nav"
+      aria-label="メニュー内グローバルナビゲーション"
+    >
+      <ul class="app-header__drawer-nav-list">
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/">契約</a></li>
+        <li><a href="/">請求</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

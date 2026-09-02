@@ -1,0 +1,55 @@
+.app-invoice-summary {
+  padding: 1.5rem;
+  border: 1px solid #dddbda;
+  border-radius: 0.25rem;
+}
+
+.app-invoice-summary__title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #3e3e3c;
+}
+
+.app-invoice-summary__amount {
+  margin: 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.app-invoice-summary__note {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: #3e3e3c;
+}
+
+@media (min-width: 48rem) {
+  .app-invoice-summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "title title"
+      "amount action"
+      "note note";
+    align-items: center;
+    column-gap: 1.5rem;
+  }
+
+  .app-invoice-summary__title {
+    grid-area: title;
+  }
+
+  .app-invoice-summary__amount {
+    grid-area: amount;
+    margin: 0;
+  }
+
+  .app-invoice-summary__action {
+    grid-area: action;
+    justify-self: end;
+  }
+
+  .app-invoice-summary__note {
+    grid-area: note;
+  }
+}

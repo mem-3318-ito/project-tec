@@ -1,0 +1,10 @@
+.app-org-name {
+  padding: 1rem 1.5rem;
+  border: 1px solid #dddbda;
+  border-radius: 0.25rem;
+}
+
+.app-org-name__label {
+  margin: 0;
+  font-weight: 700;
+}

@@ -27,13 +27,13 @@ npm install
 npm run dev
 ```
 
-ブラウザで `http://localhost:4173` を開くと `user-list.html` が表示されます。
+ブラウザで `http://localhost:4173/top.html` を開くとマイページ（TOP画面）が表示されます。
 
 初回 `npm install` で生成された `package-lock.json` はGitへコミットし、実案件ではCIを `npm ci` に切り替えて依存バージョンを固定することを推奨します。
 
 ## SLDSバージョン
 
-このサンプルは `@salesforce-ux/design-system` 2.264.0（SLDS 1）を固定して利用します。対象Salesforce環境でSLDS 2 / Cosmosを採用する場合は、静的側だけ先行して混在させず、LWC側の対象デザインシステムと合わせて依存・Blueprint・レビュー基準を切り替えてください。
+このサンプルは `@salesforce-ux/design-system-2` 2.264.1（SLDS 2 / Cosmosテーマ）を固定して利用します。クラシックの `@salesforce-ux/design-system`（SLDS 1）とは別パッケージです。対象Salesforce環境がSLDS 1のままの場合は、静的側だけ先行させず、LWC側の対象デザインシステムと合わせて依存・Blueprint・レビュー基準を切り替えてください。
 
 ## コマンド
 
@@ -51,8 +51,19 @@ npm run check        # format:check + lint + build
 ```text
 project/
 ├─ src/
-│  ├─ pages/              # ページ構成
-│  ├─ components/         # LWC候補
+│  ├─ pages/
+│  │  └─ top.html         # マイページ（TOP画面）
+│  ├─ components/
+│  │  ├─ common/          # 全画面共通の4種のみ
+│  │  │  ├─ header/
+│  │  │  ├─ global-nav/
+│  │  │  ├─ breadcrumb/   # 現時点でtop.htmlは未使用（後続画面向けの雛形）
+│  │  │  └─ back-button/  # 同上
+│  │  └─ top/             # top.html専用コンポーネント
+│  │     ├─ org-name/
+│  │     ├─ invoice-summary/
+│  │     ├─ active-contracts/
+│  │     └─ notifications/
 │  ├─ styles/             # 全体共通の最低限のCSS
 │  └─ scripts/            # ページレベルのJS
 ├─ scripts/               # build / dev / project rule check
@@ -65,9 +76,12 @@ project/
 ページでは以下のようにコンポーネントを組み合わせます。
 
 ```html
-<include src="components/header/header.html"></include>
-<include src="components/search-form/search-form.html"></include>
-<include src="components/result-table/result-table.html"></include>
+<include src="components/common/header/header.html"></include>
+<include src="components/common/global-nav/global-nav.html"></include>
+<include src="components/top/org-name/org-name.html"></include>
+<include src="components/top/invoice-summary/invoice-summary.html"></include>
+<include src="components/top/active-contracts/active-contracts.html"></include>
+<include src="components/top/notifications/notifications.html"></include>
 ```
 
 `npm run build` を実行すると、IncludeされたHTMLが通常のHTMLへ展開されます。
@@ -75,24 +89,26 @@ project/
 さらに、IncludeしたHTMLと同じディレクトリに同名のCSS / JSが存在する場合、ビルド時にページへ自動で読み込みタグを追加します。
 
 ```text
-components/search-form/
-├─ search-form.html
-├─ search-form.css  → 自動でlink追加
-└─ search-form.js   → 自動でscript追加
+components/top/invoice-summary/
+├─ invoice-summary.html
+├─ invoice-summary.css  → 自動でlink追加
+└─ invoice-summary.js   → 自動でscript追加
 ```
 
 この仕組みにより、ページ側が各コンポーネントのCSS / JS依存を知る必要をなくしています。
 
 ## Static Component → LWC対応イメージ
 
-| Static Component | LWC候補            |
-| ---------------- | ------------------ |
-| `header`         | `c-header`         |
-| `search-form`    | `c-search-form`    |
-| `result-table`   | `c-result-table`   |
-| `pagination`     | `c-pagination`     |
-| `user-detail`    | `c-user-detail`    |
-| `user-edit-form` | `c-user-edit-form` |
+| Static Component       | LWC候補              |
+| ---------------------- | -------------------- |
+| `common/header`        | `c-header`           |
+| `common/global-nav`    | `c-global-nav`       |
+| `common/breadcrumb`    | `c-breadcrumb`       |
+| `common/back-button`   | `c-back-button`      |
+| `top/org-name`         | `c-org-name`         |
+| `top/invoice-summary`  | `c-invoice-summary`  |
+| `top/active-contracts` | `c-active-contracts` |
+| `top/notifications`    | `c-notifications`    |
 
 LWC化時は静的HTMLを機械的にそのまま移すのではなく、利用可能な箇所はLightning Base Componentsへの置き換えを検討します。
 
@@ -109,7 +125,7 @@ NG:
 OK:
 
 ```css
-.app-search-form__actions {
+.app-invoice-summary__action {
   display: flex;
   justify-content: flex-end;
 }
@@ -128,10 +144,14 @@ document.getElementById("search-button");
 OK:
 
 ```js
-const components = document.querySelectorAll('[data-component="search-form"]');
+const components = document.querySelectorAll(
+  '[data-component="invoice-summary"]',
+);
 
 components.forEach((component) => {
-  const button = component.querySelector('[data-action="search"]');
+  const button = component.querySelector(
+    '[data-action="view-contract-status"]',
+  );
 });
 ```
 
