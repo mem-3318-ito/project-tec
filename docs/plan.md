@@ -1,14 +1,19 @@
 # 某プロジェクトの開発面での想定可能な対応策の検討や開発方法、構成などをまとめる
+
 ## 概要
-UIデザインおよび静的フロントエンドの制作（Salesforce標準デザイン（SLDS 2）を考慮）を行い、LWC化担当の別ベンダーへ引き継ぎを行う作業が主となるプロジェクト。
+
+UIデザインおよび静的フロントエンドの制作（Salesforce標準デザイン（SLDS v1）を考慮）を行い、LWC化担当の別ベンダーへ引き継ぎを行う作業が主となるプロジェクト。
 
 対象画面は15ページあり、画面ごとに複数のコンポーネントを準備する必要がある比較的大規模な構成となる。
 
 ## SLDS準拠・LWC化を前提とした構成検討
 
+ルールの全体像は「[28. 最重要ルール](#28-最重要ルール)」、決定事項の全文は本文（1章以降）を参照。
+
 ## 1. 前提
 
 ### 作業フロー
+
 1. SLDSを考慮した静的HTML / CSS / JavaScriptで画面またはパーツを作成する
 2. 作成した画面・パーツを別ベンダーへ渡す
 3. 別ベンダー側でLWC化する
@@ -20,21 +25,12 @@ UIデザインおよび静的フロントエンドの制作（Salesforce標準�
 
 として設計する。
 
-
-### 基本方針
-
-- HTMLはパーツ単位で管理する
-- ページHTMLには共通パーツを直接コピーしない
-- ビルド時にHTMLパーツをページへ展開する
-- `src` を正とし、`dist` は成果物とする
-- コンポーネントの境界を将来のLWC境界に近づける
-- SLDS Blueprintを静的HTML実装の基準とする
-- 独自CSSやJavaScriptはコンポーネント単位で閉じる
-- LWC化しにくい静的HTML固有の実装を避ける
+基本方針の全体像は「要約」を、各方針の詳細は2章以降を参照。
 
 ### 制約・前提条件
 
-- SLDSはバージョン2を採用する
+- SLDSはバージョン1（SLDS v1）を採用する
+- ファイル名・ディレクトリ名の命名規則、UIコンポーネントのID属性・ラベル関連付けについては一部を公式ルールとして定める（詳細は「8-1. ファイル名・ディレクトリ名の命名規則」「11. CSSやJavaScriptで `id` に依存しない」を参照）。それ以外の命名・実装の細部はこちら側の裁量で決定する
 - 画面数は15ページを想定し、画面ごとに複数のコンポーネントを準備する
 - 共通コンポーネントとして扱うのは以下の4種類のみとする（それ以外は画面・機能単位のコンポーネントとして扱う）
   - ヘッダー
@@ -123,17 +119,17 @@ project/
 
 各ディレクトリの責務は以下
 
-| ディレクトリ | 役割 |
-|---|---|
-| `src/pages` | 画面全体の構成（15画面分） |
+| ディレクトリ            | 役割                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
+| `src/pages`             | 画面全体の構成（15画面分）                                                                       |
 | `src/components/common` | 全画面共通のパーツ（ヘッダー / グローバルナビゲーション / パンくずリスト / 戻るボタンの4種のみ） |
-| `src/components/[page]` | 画面・機能単位のパーツ（検索フォーム、テーブルなど）、将来のLWC化候補 |
-| `src/styles` | 全画面共通の最低限のスタイル |
-| `src/scripts` | 全体共通処理 |
-| `src/assets` | 画像などの静的リソース |
-| `scripts` | ビルド処理 |
-| `dist` | 表示・動作確認用の成果物 |
-| `.husky` | pre-pushフック（push前のLint等自動実行） |
+| `src/components/[page]` | 画面・機能単位のパーツ（検索フォーム、テーブルなど）、将来のLWC化候補                            |
+| `src/styles`            | 全画面共通の最低限のスタイル                                                                     |
+| `src/scripts`           | 全体共通処理                                                                                     |
+| `src/assets`            | 画像などの静的リソース                                                                           |
+| `scripts`               | ビルド処理                                                                                       |
+| `dist`                  | 表示・動作確認用の成果物                                                                         |
+| `.husky`                | pre-pushフック（push前のLint等自動実行）                                                         |
 
 ---
 
@@ -148,27 +144,29 @@ project/
 ```html
 <!doctype html>
 <html lang="ja">
-<head>
-  ...
-</head>
-<body>
+  <head>
+    ...
+  </head>
+  <body>
+    <include src="../components/common/header/header.html"></include>
+    <include src="../components/common/global-nav/global-nav.html"></include>
 
-  <include src="../components/common/header/header.html"></include>
-  <include src="../components/common/global-nav/global-nav.html"></include>
+    <main class="app-main">
+      <include src="../components/top/org-name/org-name.html"></include>
 
-  <main class="app-main">
+      <include
+        src="../components/top/invoice-summary/invoice-summary.html"
+      ></include>
 
-    <include src="../components/top/org-name/org-name.html"></include>
+      <include
+        src="../components/top/active-contracts/active-contracts.html"
+      ></include>
 
-    <include src="../components/top/invoice-summary/invoice-summary.html"></include>
-
-    <include src="../components/top/active-contracts/active-contracts.html"></include>
-
-    <include src="../components/top/notifications/notifications.html"></include>
-
-  </main>
-
-</body>
+      <include
+        src="../components/top/notifications/notifications.html"
+      ></include>
+    </main>
+  </body>
 </html>
 ```
 
@@ -326,19 +324,14 @@ LWC Component A
 
 ---
 
-## 6. SLDS 2 Blueprintを静的HTMLの基準とする
+## 6. SLDS v1 Blueprintを静的HTMLの基準とする
 
-静的HTMLでは、SLDS 2に準拠したカスタムコンポーネントを構築するための設計図（Blueprint）を基本とする。SLDS 1系との差異（トークン、クラス名、コンポーネント構造など）がある場合は、必ずSLDS 2側の仕様に合わせる。
+静的HTMLでは、SLDS v1に準拠したカスタムコンポーネントを構築するための設計図（Blueprint）を基本とする。SLDS 2系との差異（トークン、クラス名、コンポーネント構造など）がある場合は、必ずSLDS v1側の仕様に合わせる。
 
 例えばボタンは以下のように実装する。
 
 ```html
-<button
-  class="slds-button slds-button_brand"
-  type="button"
->
-  保存
-</button>
+<button class="slds-button slds-button_brand" type="button">保存</button>
 ```
 
 LWC化する際は、LWC担当者が必要に応じてLightning Base Componentsへ置き換える。
@@ -346,10 +339,7 @@ LWC化する際は、LWC担当者が必要に応じてLightning Base Components�
 例:
 
 ```html
-<lightning-button
-  label="保存"
-  variant="brand"
-></lightning-button>
+<lightning-button label="保存" variant="brand"></lightning-button>
 ```
 
 つまり役割分担は以下とする。
@@ -392,14 +382,12 @@ OK:
 
 ```html
 <section class="app-search-form">
-
   <button
     class="slds-button slds-button_brand app-search-form__submit"
     type="button"
   >
     検索
   </button>
-
 </section>
 ```
 
@@ -487,6 +475,33 @@ app-result-table__actions
 
 ---
 
+## 8-1. ファイル名・ディレクトリ名の命名規則
+
+HTMLファイル名・ディレクトリ名には以下のルールを適用する（プロジェクトの公式ルールとして確定済み）。
+
+- 半角英小文字・数字・ハイフン（`-`）/アンダースコア（`_`）のみを使用する
+- 単語区切りが必要な場合は日本語のローマ字表記を避け、英語またはローマ字ではなく英語表現を使用する
+
+OK:
+
+```text
+search-form.html
+result-table.css
+active-contracts/
+```
+
+NG:
+
+```text
+KensakuForm.html
+検索フォーム.html
+Search_Form.HTML
+```
+
+これ以外のCSSクラス命名（BEM形式など、「8. CSSはコンポーネント単位で閉じる」を参照）やディレクトリ構成の細部については、本プロジェクトの裁量で決定してよい。
+
+---
+
 ## 9. Global CSSを最小限にする
 
 `common.css` にすべてのスタイルを追加する運用は避ける。
@@ -555,7 +570,7 @@ NG:
 ```
 
 ```js
-document.querySelector('#searchButton');
+document.querySelector("#searchButton");
 ```
 
 CSSではclassを使用する。
@@ -593,6 +608,27 @@ aria-labelledby
 
 で必要な場合は使用してよい。
 
+### UIコンポーネントにおけるID属性・ラベル関連付けのルール（公式ルール）
+
+以下はプロジェクトの公式ルールとして確定済みとする。
+
+- プログラムで解釈可能な識別子と役割を提供すること（`label` の `for` 属性と `input` の `id` を一致させる）
+- 同一ページ内で `id` を重複させない
+
+OK:
+
+```html
+<label for="user-name">氏名</label>
+<input id="user-name" type="text" name="user-name" />
+```
+
+NG:
+
+```html
+<label for="name">氏名</label>
+<input id="user_name" type="text" name="user-name" />
+```
+
 ---
 
 ## 12. JavaScriptもコンポーネント境界を意識する
@@ -602,11 +638,7 @@ JavaScriptがページ全体のDOMを自由に操作する構造は避ける。
 コンポーネントのルートを定義する。
 
 ```html
-<section
-  class="app-search-form"
-  data-component="search-form"
->
-
+<section class="app-search-form" data-component="search-form">
   ...
 
   <button
@@ -616,25 +648,20 @@ JavaScriptがページ全体のDOMを自由に操作する構造は避ける。
   >
     検索
   </button>
-
 </section>
 ```
 
 JavaScriptでは、まずコンポーネントを取得する。
 
 ```js
-const components =
-  document.querySelectorAll('[data-component="search-form"]');
+const components = document.querySelectorAll('[data-component="search-form"]');
 
 components.forEach((component) => {
+  const searchButton = component.querySelector('[data-action="search"]');
 
-  const searchButton =
-    component.querySelector('[data-action="search"]');
-
-  searchButton?.addEventListener('click', () => {
+  searchButton?.addEventListener("click", () => {
     // prototype用処理
   });
-
 });
 ```
 
@@ -662,8 +689,9 @@ NG:
 
 ```js
 // search-formコンポーネントがresult-tableの内部を直接書き換える
-searchButton.addEventListener('click', () => {
-  document.querySelector('[data-component="result-table"] tbody').innerHTML = '...';
+searchButton.addEventListener("click", () => {
+  document.querySelector('[data-component="result-table"] tbody').innerHTML =
+    "...";
 });
 ```
 
@@ -674,19 +702,21 @@ searchButton.addEventListener('click', () => {
 ```js
 // search-form側: 検索条件をイベントとして発火するだけ
 searchFormRoot.dispatchEvent(
-  new CustomEvent('app:search', {
+  new CustomEvent("app:search", {
     bubbles: true,
     detail: { keyword },
-  })
+  }),
 );
 ```
 
 ```js
 // ページ側: イベントを受けてテーブル側コンポーネントを更新する
-pageRoot.addEventListener('app:search', (event) => {
-  const tableComponent = pageRoot.querySelector('[data-component="result-table"]');
+pageRoot.addEventListener("app:search", (event) => {
+  const tableComponent = pageRoot.querySelector(
+    '[data-component="result-table"]',
+  );
   tableComponent?.dispatchEvent(
-    new CustomEvent('app:update-rows', { detail: event.detail })
+    new CustomEvent("app:update-rows", { detail: event.detail }),
   );
 });
 ```
@@ -709,7 +739,7 @@ result-table
 search-form → (event) → 親コンポーネント/ページ → (property/event) → result-table
 ```
 
-という構造にそのまま置き換えやすい。LWCの`CustomEvent` + 親子間のプロパティ受け渡しと対応関係を作っておくことが目的であり、静的HTML側で状態管理ライブラリなどを持ち込む必要はない（「27. 静的工程でやりすぎない」を参照）。
+という構造にそのまま置き換えやすい。LWCの`CustomEvent` + 親子間のプロパティ受け渡しと対応関係を作っておくことが目的であり、静的HTML側で状態管理ライブラリなどを持ち込む必要はない（「26. 静的工程でやりすぎない」を参照）。
 
 ---
 
@@ -720,26 +750,19 @@ search-form → (event) → 親コンポーネント/ページ → (property/eve
 NG:
 
 ```html
-<button onclick="search()">
-  検索
-</button>
+<button onclick="search()">検索</button>
 ```
 
 NG:
 
 ```html
-<div style="margin-top: 16px">
+<div style="margin-top: 16px"></div>
 ```
 
 以下のようにHTML、CSS、JavaScriptを分離する。
 
 ```html
-<button
-  class="app-search-form__button"
-  data-action="search"
->
-  検索
-</button>
+<button class="app-search-form__button" data-action="search">検索</button>
 ```
 
 ```css
@@ -760,28 +783,38 @@ searchButton.addEventListener('click', () => {
 
 静的HTML工程では、LWCのビジネスロジックまで先行実装しない。
 
-実装対象の例:
+実装範囲は「ユーザー操作に伴う表示状態・画面状態」とし、API連携やSalesforceデータ取得に関連しないフロント部分は全て対応する。画面設計書に明示されていない表現も含め、以下は対応する。
+
+表示全般の例:
 
 ```text
-モーダル開閉
-タブ切り替え
+セクション切り替え
 Accordion
-プルダウン
+プルダウンメニューの開閉
+入力値に応じた表示切替
+ボタンの活性/非活性
 エラー表示
-入力状態
-表示・非表示切り替え
-簡単なバリデーション表現
+完了メッセージ（必要があれば）
+検索条件の保持
+検索後の結果表示状態
+0件表示
+ページネーション
+ソート表示
 ```
 
-原則として静的工程では実装しないもの:
+その他対応するもの:
 
 ```text
-Salesforce API通信
-DB処理
-認証
-Salesforceデータ取得
-複雑な状態管理
-本番用ビジネスロジック
+UI上不要な簡易バリデーション
+API結果を想定した各種表示パターンの再現
+（ただしデータ形式の確認などSB側との連携が必要になることもある）
+```
+
+原則として静的工程では実装しない（LWCのビジネスロジックとしての実装範囲）もの:
+
+```text
+API連携
+Salesforceデータ取得が必要な範囲（DB系）
 ```
 
 必要なデータはモックでよい。
@@ -789,12 +822,12 @@ Salesforceデータ取得
 ```js
 const mockUsers = [
   {
-    id: '001',
-    name: '山田太郎',
+    id: "001",
+    name: "山田太郎",
   },
   {
-    id: '002',
-    name: '鈴木花子',
+    id: "002",
+    name: "鈴木花子",
   },
 ];
 ```
@@ -814,17 +847,13 @@ WCAG 2.1 AAへの準拠を到達目標とする。見た目だけ合わせるの
 NG:
 
 ```html
-<div onclick="save()">
-  保存
-</div>
+<div onclick="save()">保存</div>
 ```
 
 OK:
 
 ```html
-<button type="button">
-  保存
-</button>
+<button type="button">保存</button>
 ```
 
 最低限確認する項目:
@@ -834,7 +863,7 @@ OK:
 - form
 - label
 - heading階層
-- aria-* 属性
+- aria-\* 属性
 - キーボード操作
 - focus状態
 - エラー表示
@@ -986,20 +1015,18 @@ Lightning Base Componentへ置き換えやすい構造か
 
 ---
 
-## 19. 推奨開発フロー
+## 19. 開発・レビューフロー
 
-開発者のローカル作業は以下とする。
+コード管理はBacklogのgitを想定しており、CIは利用できない前提とする。そのため、CIでの機械的チェックの代わりに、Husky（pre-push）によるローカルでの自動チェックを必須の防波堤とする。
+
+開発者のローカル作業からPRレビューまでの一連の流れは以下とする。
 
 ```text
 実装
  ↓
 Prettier
  ↓
-HTML Validate
- ↓
-Stylelint
- ↓
-ESLint
+HTML Validate / Stylelint / ESLint
  ↓
 Claude CodeによるSLDS / LWC観点レビュー
  ↓
@@ -1007,9 +1034,17 @@ npm run build
  ↓
 dist表示確認
  ↓
-git push（Husky pre-pushでnpm run checkを自動実行）
+git push
  ↓
-PR作成
+Husky (pre-push) → npm run check（lint + build）
+ ↓
+（Lintエラーがあればpush自体が失敗する）
+ ↓
+Pull Request作成
+ ↓
+Claude CodeによるAI Review（SLDS / LWC移行観点）
+ ↓
+人間によるReview
 ```
 
 ```bash
@@ -1024,37 +1059,7 @@ lint
 build
 ```
 
-まで実行できるようにする。
-
-また、`git push`時にはHusky（pre-push）が`npm run check`を自動実行するため、Lintエラーが残ったままの状態ではpushできない。開発者が手動でチェックを忘れた場合でも、機械的な問題がリモートに渡らないようにする。
-
----
-
-## 20. PR / レビューの推奨フロー
-
-コード管理はBacklogのgitを想定しており、CIは利用できない前提とする。そのため、CIでの機械的チェックの代わりに、Husky（pre-push）によるローカルでの自動チェックを必須の防波堤とする。
-
-```text
-実装 / コミット
-     ↓
-git push
-     ↓
-Husky (pre-push)
-     ↓
-npm run check
-   ├─ HTML Validate
-   ├─ Stylelint
-   ├─ ESLint
-   └─ Build
-     ↓
-（Lintエラーがあればpush自体が失敗する）
-     ↓
-Pull Request作成
-     ↓
-Claude CodeによるAI Review（SLDS / LWC移行観点）
-     ↓
-人間によるReview
-```
+まで実行できるようにする。`git push`時にはHusky（pre-push）が`npm run check`を自動実行するため、Lintエラーが残ったままの状態ではpushできない。開発者が手動でチェックを忘れた場合でも、機械的な問題がリモートに渡らないようにする。
 
 Husky（pre-push）を通過したコードのみがリモートへpushされるため、Lintで検出できる機械的な問題は原則PRに持ち込まれない。したがって人間のPRレビューは、
 
@@ -1072,7 +1077,7 @@ Husky（pre-push）を通過したコードのみがリモートへpushされる
 
 ---
 
-## 21. ローカル開発環境は `npm run dev` で起動可能にする
+## 20. ローカル開発環境は `npm run dev` で起動可能にする
 
 新規参画者が、
 
@@ -1127,7 +1132,7 @@ npm run review
 
 ---
 
-## 22. LWC担当ベンダーへ `dist` だけを渡さない
+## 21. LWC担当ベンダーへ `dist` だけを渡さない
 
 LWC化担当ベンダーには、生成されたHTMLだけではなくソース構造も渡す。
 
@@ -1148,30 +1153,30 @@ README.md
 
 役割:
 
-| 成果物 | 用途 |
-|---|---|
-| `src/pages` | ページ構成の確認 |
+| 成果物           | 用途                      |
+| ---------------- | ------------------------- |
+| `src/pages`      | ページ構成の確認          |
 | `src/components` | LWC化する元コンポーネント |
-| `src/styles` | 共通スタイル |
-| `src/scripts` | UI操作仕様 |
-| `dist` | 完成状態の画面確認 |
-| `README.md` | 実装ルール・変換方針 |
+| `src/styles`     | 共通スタイル              |
+| `src/scripts`    | UI操作仕様                |
+| `dist`           | 完成状態の画面確認        |
+| `README.md`      | 実装ルール・変換方針      |
 
 ---
 
-## 23. Static ComponentとLWCの対応表を用意する
+## 22. Static ComponentとLWCの対応表を用意する
 
 READMEなどに対応表を作る。
 
 例:
 
-| Static Component | LWC想定 |
-|---|---|
-| `header` | `c-header` |
-| `breadcrumb` | `c-breadcrumb` |
-| `search-form` | `c-search-form` |
-| `result-table` | `c-result-table` |
-| `pagination` | `c-pagination` |
+| Static Component | LWC想定          |
+| ---------------- | ---------------- |
+| `header`         | `c-header`       |
+| `breadcrumb`     | `c-breadcrumb`   |
+| `search-form`    | `c-search-form`  |
+| `result-table`   | `c-result-table` |
+| `pagination`     | `c-pagination`   |
 
 イメージ:
 
@@ -1187,7 +1192,7 @@ c-search-form
 
 ---
 
-## 24. LWC化後の表示崩れ修正ルールを決めておく
+## 23. LWC化後の表示崩れ修正ルールを決めておく
 
 LWC化後に表示差分が発生した場合、単純に静的CSSを修正するのではなく、原因を切り分ける。
 
@@ -1251,7 +1256,7 @@ LWC側で調整
 
 ---
 
-## 25. iframeは共通化用途として使用しない
+## 24. iframeは共通化用途として使用しない
 
 headerやfooter等の共通化にiframeは利用しない。
 
@@ -1285,7 +1290,7 @@ Build Include
 
 ---
 
-## 26. Native Web Componentsも原則として導入しない
+## 25. Native Web Componentsも原則として導入しない
 
 Native Web Componentsを利用すると、
 
@@ -1316,7 +1321,7 @@ JavaScript
 
 ---
 
-## 27. 静的工程でやりすぎない
+## 26. 静的工程でやりすぎない
 
 静的環境を便利にしすぎて、
 
@@ -1355,7 +1360,7 @@ LWC
 
 ---
 
-## 28. 推奨アーキテクチャ
+## 27. 推奨アーキテクチャ
 
 全体像は以下。
 
@@ -1419,7 +1424,7 @@ LWC
 
 ---
 
-## 29. 最重要ルール
+## 28. 最重要ルール
 
 本プロジェクトで特に重要なルールをまとめる。
 
@@ -1427,7 +1432,7 @@ LWC
 2. `src` を正とし、`dist` は生成物とする
 3. `dist` を直接編集しない
 4. Component境界は将来のLWC境界を意識する
-5. SLDS 2 Blueprintを静的HTML実装の基準にする
+5. SLDS v1 Blueprintを静的HTML実装の基準にする
 6. LWC化後はLightning Base Componentsを優先する
 7. SLDSクラスを独自CSSで直接overrideしない
 8. 独自CSSはComponent単位で閉じる
@@ -1451,10 +1456,12 @@ LWC
 26. 共通コンポーネントはヘッダー / グローバルナビゲーション / パンくずリスト / 戻るボタンの4種のみとする
 27. 検索とテーブルなど、コンポーネントを跨ぐ処理はカスタムイベント経由でページ側が仲介する
 28. 15画面規模を前提に、画面・機能単位のコンポーネントは無理に共通化しない
+29. ファイル名・ディレクトリ名は半角英小文字・数字・ハイフン/アンダースコアのみを使用する
+30. `label` の `for` と `input` の `id` を一致させ、`id` はページ内で重複させない
 
 ---
 
-## 30. 最終方針
+## 29. 最終方針
 
 今回の開発では、
 
@@ -1462,45 +1469,12 @@ LWC
 静的HTMLを完成品として作る
 ```
 
-のではなく、
-
-```text
-SLDS Blueprint
-      ↓
-LWC化しやすいStatic Component
-      ↓
-Build
-      ↓
-画面確認
-      ↓
-別ベンダーへ受け渡し
-      ↓
-LWC化
-```
-
-という流れを前提とする。
-
-そのため、ビルド環境は可能な限り薄く保つ。
-
-HTMLの共通化については、
-
-```text
-Component HTML
-      ↓
-Build時Include
-      ↓
-通常のStatic HTML
-```
-
-という方式を採用する。
+のではなく、「27. 推奨アーキテクチャ」の全体像に沿って、SLDS Blueprintから始まりLWC化までを見据えた中間成果物として静的UIを作る。そのため、ビルド環境は可能な限り薄く保つ（3章「HTML共通化は『ビルド時Include』で行う」を参照）。
 
 この方式により、
 
 - フレームワーク依存を避けられる
-- 共通HTMLを一元管理できる
-- 完成した静的HTMLとして確認できる
 - Component単位でLWCへ移行しやすい
-- CSS / JavaScriptの責務が明確になる
 - SLDSレビューをComponent単位で実施できる
 - 別ベンダーとの責任分界が明確になる
 - LWC化後の表示差分を追跡しやすい
@@ -1511,4 +1485,4 @@ Build時Include
 
 **「SLDS Blueprint準拠 + Component単位管理 + Build時HTML Include + LWC境界を意識したCSS / JavaScript設計」**
 
-を基本方針とする。
+を基本方針とする。個別ルールの全文は「28. 最重要ルール」を参照。
