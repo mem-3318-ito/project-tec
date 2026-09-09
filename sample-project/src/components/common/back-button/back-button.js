@@ -1,12 +1,18 @@
-const components = document.querySelectorAll('[data-component="back-button"]');
+(function () {
+  "use strict";
 
-components.forEach((component) => {
-  component.addEventListener("click", () => {
-    component.dispatchEvent(
-      new CustomEvent("app:prototype-action", {
-        bubbles: true,
-        detail: { action: "back" },
-      }),
-    );
+  const components = document.querySelectorAll(
+    '[data-component="back-button"]',
+  );
+
+  components.forEach((component) => {
+    component.addEventListener("click", () => {
+      component.dispatchEvent(
+        new CustomEvent("app:prototype-action", {
+          bubbles: true,
+          detail: { action: "back" },
+        }),
+      );
+    });
   });
-});
+})();

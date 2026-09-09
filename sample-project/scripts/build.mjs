@@ -72,7 +72,7 @@ async function renderPage(pagePath) {
   const scriptTags = unique(jsFiles)
     .map((file) => {
       const webPath = relative(srcDir, file).split("\\").join("/");
-      return `    <script type="module" src="./${webPath}"></script>`;
+      return `    <script src="./${webPath}"></script>`;
     })
     .join("\n");
 

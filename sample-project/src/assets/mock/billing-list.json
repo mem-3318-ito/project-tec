@@ -1,0 +1,24 @@
+{
+  "items": [
+    { "billingNumber": "B-2026-001", "billingMonth": "202601", "billingAmount": "20000" },
+    { "billingNumber": "B-2026-002", "billingMonth": "202602", "billingAmount": "20500" },
+    { "billingNumber": "B-2026-003", "billingMonth": "202603", "billingAmount": "21000" },
+    { "billingNumber": "B-2026-004", "billingMonth": "202604", "billingAmount": "21500" },
+    { "billingNumber": "B-2026-005", "billingMonth": "202605", "billingAmount": "22000" },
+    { "billingNumber": "B-2026-006", "billingMonth": "202605", "billingAmount": "22500" },
+    { "billingNumber": "B-2026-007", "billingMonth": "202606", "billingAmount": "23000" },
+    { "billingNumber": "B-2026-008", "billingMonth": "202606", "billingAmount": "23500" },
+    { "billingNumber": "B-2026-009", "billingMonth": "202607", "billingAmount": "24000" },
+    { "billingNumber": "B-2026-010", "billingMonth": "202607", "billingAmount": "24500" },
+    { "billingNumber": "B-2026-011", "billingMonth": "202608", "billingAmount": "20000" },
+    { "billingNumber": "B-2026-012", "billingMonth": "202608", "billingAmount": "20500" },
+    { "billingNumber": "B-2026-013", "billingMonth": "202609", "billingAmount": "21000" },
+    { "billingNumber": "B-2026-014", "billingMonth": "202609", "billingAmount": "21500" },
+    { "billingNumber": "B-2026-015", "billingMonth": "202610", "billingAmount": "22000" },
+    { "billingNumber": "B-2026-016", "billingMonth": "202610", "billingAmount": "22500" },
+    { "billingNumber": "B-2026-017", "billingMonth": "202611", "billingAmount": "23000" },
+    { "billingNumber": "B-2026-018", "billingMonth": "202611", "billingAmount": "23500" },
+    { "billingNumber": "B-2026-019", "billingMonth": "202612", "billingAmount": "24000" },
+    { "billingNumber": "B-2026-020", "billingMonth": "202612", "billingAmount": "24500" }
+  ]
+}

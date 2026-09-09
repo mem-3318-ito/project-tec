@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>請求一覧 | サンプル SLDS UI</title>
+    <link rel="stylesheet" href="./vendor/slds/slds2.cosmos.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./components/billing-list/search-form/search-form.css">
+    <link rel="stylesheet" href="./components/billing-list/result-table/result-table.css">
+  </head>
+  <body>
+    <main class="app-main" data-page="billing-list">
+      <div class="app-visually-constrained app-page-stack">
+        <h1 class="slds-text-heading_small slds-border_bottom app-page-heading">
+          請求一覧
+        </h1>
+
+        <section class="app-search-form" data-component="search-form">
+  <h2 class="app-search-form__title slds-text-heading_small">検索条件</h2>
+
+  <div class="slds-form-element app-search-form__field">
+    <label class="slds-form-element__label" for="billing-number">請求番号</label>
+    <div class="slds-form-element__control">
+      <input type="text" id="billing-number" name="billing-number" class="slds-input" placeholder="例: B-2026-001" data-field="billing-number">
+    </div>
+  </div>
+
+  <div class="app-search-form__actions">
+    <button type="button" class="slds-button slds-button_brand app-search-form__submit" data-action="search">
+      検索
+    </button>
+    <button type="button" class="slds-button slds-button_neutral app-search-form__clear" data-action="clear">
+      クリア
+    </button>
+  </div>
+</section>
+
+        <section class="app-result-table" data-component="result-table">
+  <table class="app-result-table__table slds-table slds-table_bordered slds-table_cell-buffer">
+    <caption class="app-result-table__caption">
+      請求一覧
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">請求番号</th>
+        <th scope="col">請求対象月</th>
+        <th scope="col">請求金額</th>
+      </tr>
+    </thead>
+    <tbody data-role="rows">
+      <tr>
+        <td>B-2026-002</td>
+        <td>2026/05</td>
+        <td>24,500円</td>
+      </tr>
+      <tr>
+        <td>B-2026-002</td>
+        <td>2026/05</td>
+        <td>24,500円</td>
+      </tr>
+      <tr>
+        <td>B-2026-002</td>
+        <td>2026/05</td>
+        <td>24,500円</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="app-result-table__empty" data-role="empty" hidden="">
+    該当する請求はありません。
+  </p>
+</section>
+
+      </div>
+    </main>
+
+    <script src="./components/billing-list/search-form/search-form.js"></script>
+    <script src="./components/billing-list/result-table/result-table.js"></script>
+    <script src="./scripts/billing-list.js"></script>
+  </body>
+</html>

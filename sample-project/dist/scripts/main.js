@@ -1,3 +1,7 @@
-document.addEventListener("app:prototype-action", (event) => {
-  console.info("prototype action:", event.detail);
-});
+(function () {
+  "use strict";
+
+  document.addEventListener("app:prototype-action", (event) => {
+    console.info("prototype action:", event.detail);
+  });
+})();

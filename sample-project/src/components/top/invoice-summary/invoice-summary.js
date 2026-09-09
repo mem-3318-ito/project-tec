@@ -1,18 +1,22 @@
-const components = document.querySelectorAll(
-  '[data-component="invoice-summary"]',
-);
+(function () {
+  "use strict";
 
-components.forEach((component) => {
-  const button = component.querySelector(
-    '[data-action="view-contract-status"]',
+  const components = document.querySelectorAll(
+    '[data-component="invoice-summary"]',
   );
 
-  button?.addEventListener("click", () => {
-    component.dispatchEvent(
-      new CustomEvent("app:prototype-action", {
-        bubbles: true,
-        detail: { action: "view-contract-status" },
-      }),
+  components.forEach((component) => {
+    const button = component.querySelector(
+      '[data-action="view-contract-status"]',
     );
+
+    button?.addEventListener("click", () => {
+      component.dispatchEvent(
+        new CustomEvent("app:prototype-action", {
+          bubbles: true,
+          detail: { action: "view-contract-status" },
+        }),
+      );
+    });
   });
-});
+})();

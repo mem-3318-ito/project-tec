@@ -1,0 +1,18 @@
+.app-result-table__table {
+  width: 100%;
+  background: #ffffff;
+}
+
+.app-result-table__caption {
+  padding: 0.5rem 0;
+  text-align: start;
+  caption-side: top;
+  font-weight: 700;
+}
+
+.app-result-table__empty {
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #dddbda;
+  border-block-start: 0;
+}

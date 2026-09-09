@@ -3,7 +3,7 @@ export default [
     files: ["src/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "module",
+      sourceType: "script",
       globals: {
         CustomEvent: "readonly",
         document: "readonly",
