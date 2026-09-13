@@ -1,0 +1,36 @@
+<section class="app-search-form" data-component="search-form">
+  <h2 class="app-search-form__title slds-text-heading_small">検索条件</h2>
+
+  <div class="slds-form-element app-search-form__field">
+    <label class="slds-form-element__label" for="billing-number"
+      >請求番号</label
+    >
+    <div class="slds-form-element__control">
+      <input
+        type="text"
+        id="billing-number"
+        name="billing-number"
+        class="slds-input"
+        placeholder="例: B-2026-001"
+        data-field="billing-number"
+      />
+    </div>
+  </div>
+
+  <div class="app-search-form__actions">
+    <button
+      type="button"
+      class="slds-button slds-button_brand app-search-form__submit"
+      data-action="search"
+    >
+      検索
+    </button>
+    <button
+      type="button"
+      class="slds-button slds-button_neutral app-search-form__clear"
+      data-action="clear"
+    >
+      クリア
+    </button>
+  </div>
+</section>

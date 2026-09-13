@@ -1,0 +1,7 @@
+{
+  "extends": ["html-validate:recommended", "html-validate:prettier"],
+  "rules": {
+    "no-unknown-elements": "off",
+    "require-sri": "off"
+  }
+}

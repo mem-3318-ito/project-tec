@@ -1,0 +1,25 @@
+.app-main {
+  padding-block: 1.5rem 3rem;
+}
+
+.app-page-stack {
+  display: grid;
+}
+
+.app-page-heading {
+  margin: 0;
+  padding-bottom: 0.5rem;
+  border-bottom-width: 2px;
+}
+
+.app-layout-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .app-layout-columns {
+    grid-template-columns: 7fr 3fr;
+  }
+}

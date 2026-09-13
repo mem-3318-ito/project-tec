@@ -1,0 +1,41 @@
+.app-notifications__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #dddbda;
+}
+
+.app-notifications__caption {
+  padding: 0.5rem 1rem;
+  background: #ba0517;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: start;
+  caption-side: top;
+}
+
+.app-notifications__row td {
+  padding: 0.75rem 1rem;
+  border-block-start: 1px solid #dddbda;
+  vertical-align: top;
+}
+
+.app-notifications__date {
+  white-space: nowrap;
+}
+
+.app-notifications__badge {
+  display: inline-block;
+  margin-inline-start: 0.5rem;
+  padding: 0.0625rem 0.5rem;
+  background: #fef2ec;
+  color: #ba0517;
+  font-size: 0.75rem;
+  border-radius: 0.75rem;
+}
+
+.app-notifications__more {
+  display: block;
+  margin-block-start: 0.5rem;
+  text-align: end;
+}

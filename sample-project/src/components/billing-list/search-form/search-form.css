@@ -1,0 +1,20 @@
+.app-search-form {
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #dddbda;
+}
+
+.app-search-form__title {
+  margin: 0 0 1rem;
+}
+
+.app-search-form__field {
+  max-width: 20rem;
+}
+
+.app-search-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
